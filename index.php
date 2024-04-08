@@ -31,26 +31,5 @@
             <input class="eql" type="submit" value="=">
         </form>
     </div>
-
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Check if the 'display' field is set in the POST request
-    if(isset($_POST['display'])) {
-        // Get the value of the 'display' field
-        $expression = $_POST['display'];
-
-        // Evaluate the expression using PHP's eval function
-        // Note: Be cautious when using eval, as it can execute arbitrary code. 
-        // Ensure that the input is validated properly to prevent security vulnerabilities.
-        $result = eval('return ' . $expression . ';');
-
-        // Output the result
-        echo "<div>Result: " . $result . "</div>";
-    } else {
-        // If the 'display' field is not set, handle the error accordingly
-        echo "<div>Error: Display field is not set.</div>";
-    }
-}
-?>
 </body>
 </html>
