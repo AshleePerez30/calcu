@@ -8,8 +8,8 @@
 </head>
 <body>
     <div class="container">
-    <h1>Basic Calculator</h1>
-        <form action="" name="clc" class="container">
+        <h1>Basic Calculator</h1>
+        <form action="" method="post" name="clc" class="container">
             <input type="text" name="display" readonly style="width: 370px; height: 70px; background-color: #4c555c;color: white; padding-left:5px; padding-right:5px;"><br>
             <input class="btn" type="button" value="1" onclick="clc.display.value += '1'">
             <input class="btn" type="button" value="2" onclick="clc.display.value += '2'">
@@ -28,8 +28,29 @@
             <input class="btnc" type="button" value="←" onclick="display.value = display.value.toString().slice(0,-1)"> 
             <input class="btns" type="button" value="&#247;" onclick="clc.display.value += '/'"><br>
             <input class="btn" type="button" value="." onclick="clc.display.value += '.'"> 
-            <input class="eql" type="button" value="=" onclick="clc.display.value =eval(clc.display.value)">  
+            <input class="eql" type="submit" value="=">
         </form>
     </div>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if the 'display' field is set in the POST request
+    if(isset($_POST['display'])) {
+        // Get the value of the 'display' field
+        $expression = $_POST['display'];
+
+        // Evaluate the expression using PHP's eval function
+        // Note: Be cautious when using eval, as it can execute arbitrary code. 
+        // Ensure that the input is validated properly to prevent security vulnerabilities.
+        $result = eval('return ' . $expression . ';');
+
+        // Output the result
+        echo "<div>Result: " . $result . "</div>";
+    } else {
+        // If the 'display' field is not set, handle the error accordingly
+        echo "<div>Error: Display field is not set.</div>";
+    }
+}
+?>
 </body>
 </html>
